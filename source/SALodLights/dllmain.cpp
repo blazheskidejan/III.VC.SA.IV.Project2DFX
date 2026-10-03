@@ -1,5 +1,4 @@
-﻿#include "SALodLights/ComVars.hpp"
-#define NOMINMAX
+﻿#define NOMINMAX
 #include "stdafx.h"
 #include <ranges>
 #include <deque>
