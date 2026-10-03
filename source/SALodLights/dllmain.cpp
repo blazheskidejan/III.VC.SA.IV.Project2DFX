@@ -359,6 +359,21 @@ void ApplyMemoryPatches()
                     return;
                 }
 
+                if (fProceduralObjectsDrawDistance)
+                {
+                    if (modelID >= 800 && modelID <= 906 && drawDist <= 300.0f)
+                    {
+                        if (fProceduralObjectsDrawDistance <= 10.0f)
+                            if (drawDist * fProceduralObjectsDrawDistance > drawDist)
+                                drawDist *= fProceduralObjectsDrawDistance;
+                        else if (fProceduralObjectsDrawDistance > drawDist)
+                            drawDist = fProceduralObjectsDrawDistance;
+
+                        *(float*)&regs.edx = drawDist;
+                        return;
+                    }
+                }
+
                 if (fVegetationDrawDistance)
                 {
                     if (modelID >= 615 && modelID <= 792 && drawDist <= 300.0f)
