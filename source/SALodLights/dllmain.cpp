@@ -1,4 +1,5 @@
-﻿#define NOMINMAX
+﻿#include "SALodLights/ComVars.hpp"
+#define NOMINMAX
 #include "stdafx.h"
 #include <ranges>
 #include <deque>
@@ -363,8 +364,9 @@ void ApplyMemoryPatches()
                     if (modelID >= 615 && modelID <= 792 && drawDist <= 300.0f)
                     {
                         if (fVegetationDrawDistance <= 10.0f)
-                            drawDist *= fVegetationDrawDistance;
-                        else
+                            if (drawDist * fVegetationDrawDistance > drawDist)
+                                drawDist *= fVegetationDrawDistance;
+                        else if (fVegetationDrawDistance > drawDist)
                             drawDist = fVegetationDrawDistance;
 
                         if (drawDist > fMaxDrawDistanceForNormalObjects)
@@ -380,7 +382,8 @@ void ApplyMemoryPatches()
                     if (fLODObjectsDrawDistance)
                     {
                         if (fLODObjectsDrawDistance <= 10.0f)
-                            drawDist *= fLODObjectsDrawDistance;
+                            if (drawDist * fLODObjectsDrawDistance > drawDist)
+                                drawDist *= fLODObjectsDrawDistance;
                         else if (fLODObjectsDrawDistance > drawDist)
                             drawDist = fLODObjectsDrawDistance;
                     }
@@ -392,8 +395,9 @@ void ApplyMemoryPatches()
                         if (modelID >= 615 && modelID <= 1572)
                         {
                             if (fGenericObjectsDrawDistance <= 10.0f)
-                                drawDist *= fGenericObjectsDrawDistance;
-                            else
+                                if (drawDist * fGenericObjectsDrawDistance > drawDist)
+                                    drawDist *= fGenericObjectsDrawDistance;
+                            else if (fGenericObjectsDrawDistance > drawDist)
                                 drawDist = fGenericObjectsDrawDistance;
                         }
                         else
@@ -401,8 +405,9 @@ void ApplyMemoryPatches()
                             if (fAllNormalObjectsDrawDistance)
                             {
                                 if (fAllNormalObjectsDrawDistance <= 10.0f)
-                                    drawDist *= fAllNormalObjectsDrawDistance;
-                                else
+                                    if (drawDist * fAllNormalObjectsDrawDistance > drawDist)
+                                        drawDist *= fAllNormalObjectsDrawDistance;
+                                else if (fAllNormalObjectsDrawDistance > drawDist)
                                     drawDist = fAllNormalObjectsDrawDistance;
                             }
                         }
@@ -412,8 +417,9 @@ void ApplyMemoryPatches()
                         if (fAllNormalObjectsDrawDistance)
                         {
                             if (fAllNormalObjectsDrawDistance <= 10.0f)
-                                drawDist *= fAllNormalObjectsDrawDistance;
-                            else
+                                if (drawDist * fAllNormalObjectsDrawDistance > drawDist)
+                                    drawDist *= fAllNormalObjectsDrawDistance;
+                            else if (fAllNormalObjectsDrawDistance > drawDist)
                                 drawDist = fAllNormalObjectsDrawDistance;
                         }
                     }
