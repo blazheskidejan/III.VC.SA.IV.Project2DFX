@@ -297,7 +297,7 @@ void ApplyMemoryPatches()
         }; injector::MakeInline<IncreaseDrawDistanceForTimedObjectsHook>(0x5B3F4C);
     }
 
-    if (fLODObjectsDrawDistance || fGenericObjectsDrawDistance || fAllNormalObjectsDrawDistance || fVegetationDrawDistance)
+    if (fLODObjectsDrawDistance || fGenericObjectsDrawDistance || fAllNormalObjectsDrawDistance || fVegetationDrawDistance || fProceduralObjectsDrawDistance)
     {
         struct IncreaseDrawDistanceForObjectsHook
         {
@@ -360,12 +360,11 @@ void ApplyMemoryPatches()
 
                 if (fProceduralObjectsDrawDistance)
                 {
-                    if (modelID >= 800 && modelID <= 906 && drawDist <= 300.0f)
+                    if (modelID >= 800 && modelID <= 906 && drawDist <= 100.0f)
                     {
                         if (fProceduralObjectsDrawDistance <= 10.0f)
-                            if (drawDist * fProceduralObjectsDrawDistance > drawDist)
-                                drawDist *= fProceduralObjectsDrawDistance;
-                        else if (fProceduralObjectsDrawDistance > drawDist)
+                            drawDist *= fProceduralObjectsDrawDistance;
+                        else
                             drawDist = fProceduralObjectsDrawDistance;
 
                         *(float*)&regs.edx = drawDist;
@@ -378,8 +377,7 @@ void ApplyMemoryPatches()
                     if (modelID >= 615 && modelID <= 792 && drawDist <= 300.0f)
                     {
                         if (fVegetationDrawDistance <= 10.0f)
-                            if (drawDist * fVegetationDrawDistance > drawDist)
-                                drawDist *= fVegetationDrawDistance;
+                            drawDist *= fVegetationDrawDistance;
                         else if (fVegetationDrawDistance > drawDist)
                             drawDist = fVegetationDrawDistance;
 
@@ -396,8 +394,7 @@ void ApplyMemoryPatches()
                     if (fLODObjectsDrawDistance)
                     {
                         if (fLODObjectsDrawDistance <= 10.0f)
-                            if (drawDist * fLODObjectsDrawDistance > drawDist)
-                                drawDist *= fLODObjectsDrawDistance;
+                            drawDist *= fLODObjectsDrawDistance;
                         else if (fLODObjectsDrawDistance > drawDist)
                             drawDist = fLODObjectsDrawDistance;
                     }
@@ -409,8 +406,7 @@ void ApplyMemoryPatches()
                         if (modelID >= 615 && modelID <= 1572)
                         {
                             if (fGenericObjectsDrawDistance <= 10.0f)
-                                if (drawDist * fGenericObjectsDrawDistance > drawDist)
-                                    drawDist *= fGenericObjectsDrawDistance;
+                                drawDist *= fGenericObjectsDrawDistance;
                             else if (fGenericObjectsDrawDistance > drawDist)
                                 drawDist = fGenericObjectsDrawDistance;
                         }
@@ -419,8 +415,7 @@ void ApplyMemoryPatches()
                             if (fAllNormalObjectsDrawDistance)
                             {
                                 if (fAllNormalObjectsDrawDistance <= 10.0f)
-                                    if (drawDist * fAllNormalObjectsDrawDistance > drawDist)
-                                        drawDist *= fAllNormalObjectsDrawDistance;
+                                    drawDist *= fAllNormalObjectsDrawDistance;
                                 else if (fAllNormalObjectsDrawDistance > drawDist)
                                     drawDist = fAllNormalObjectsDrawDistance;
                             }
@@ -431,8 +426,7 @@ void ApplyMemoryPatches()
                         if (fAllNormalObjectsDrawDistance)
                         {
                             if (fAllNormalObjectsDrawDistance <= 10.0f)
-                                if (drawDist * fAllNormalObjectsDrawDistance > drawDist)
-                                    drawDist *= fAllNormalObjectsDrawDistance;
+                                drawDist *= fAllNormalObjectsDrawDistance;
                             else if (fAllNormalObjectsDrawDistance > drawDist)
                                 drawDist = fAllNormalObjectsDrawDistance;
                         }
