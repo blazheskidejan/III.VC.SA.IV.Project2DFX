@@ -22,6 +22,8 @@ import DistantCars;
 import DistantCarRenderer;
 import WaterLevel;
 
+#include "ProceduralLimits.hpp"
+
 using RwV3D = RwV3d;
 
 void RegisterCustomCoronas()
@@ -148,6 +150,9 @@ void DrawDistanceChanger()
 
 void ApplyMemoryPatches()
 {
+    ProceduralLimits::Install({ nProceduralObjectInstances, nProceduralTerrainTriangles,
+        nProceduralCollisionEntities, nProceduralTemporaryObjects, nProceduralMatrices });
+
     auto pattern = hook::pattern("68 ? ? ? ? E8 ? ? ? ? 68 ? ? ? ? E8 ? ? ? ? E8");
     static auto CFileLoaderLoadLevelHook = safetyhook::create_mid(pattern.get_first(), [](SafetyHookContext& regs)
     {

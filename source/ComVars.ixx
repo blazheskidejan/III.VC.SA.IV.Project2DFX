@@ -120,6 +120,8 @@ export
     float fNewFarClip, fMaxPossibleDrawDistance;
     float fMaxDrawDistanceForNormalObjects, fTimedObjectsDrawDistance, fNeonsDrawDistance, fLODObjectsDrawDistance;
     float fGenericObjectsDrawDistance, fAllNormalObjectsDrawDistance, fVegetationDrawDistance;
+    int nProceduralObjectInstances, nProceduralTerrainTriangles, nProceduralCollisionEntities;
+    int nProceduralTemporaryObjects, nProceduralMatrices;
     bool bLoadAllBinaryIPLs, bPreloadLODs;
     float fDrawDistance;
     bool bRandomExplosionEffects, bReplaceSmokeTrailWithBulletTrail;
@@ -205,6 +207,13 @@ export
         fVegetationDrawDistance = iniReader.ReadFloat("IDETweaker", "VegetationDrawDistance", 0.0f);
         fDrawDistance = iniReader.ReadFloat("IDETweaker", "DrawDistance", 0.0f);
         bPreloadLODs = iniReader.ReadInteger("IDETweaker", "PreloadLODs", 0) != 0;
+
+        // SA procedural capacities (snapshotted when the hooks are installed).
+        nProceduralObjectInstances = iniReader.ReadInteger("ProceduralLimits", "ObjectInstances", 512);
+        nProceduralTerrainTriangles = iniReader.ReadInteger("ProceduralLimits", "TerrainTriangles", 256);
+        nProceduralCollisionEntities = iniReader.ReadInteger("ProceduralLimits", "CollisionEntities", 40);
+        nProceduralTemporaryObjects = iniReader.ReadInteger("ProceduralLimits", "TemporaryObjects", 150);
+        nProceduralMatrices = iniReader.ReadInteger("ProceduralLimits", "Matrices", 200);
 
         // Misc section
         bRandomExplosionEffects = iniReader.ReadInteger("Misc", "RandomExplosionEffects", 0) != 0;
