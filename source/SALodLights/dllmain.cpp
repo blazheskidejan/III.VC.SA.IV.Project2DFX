@@ -352,6 +352,14 @@ void ApplyMemoryPatches()
                     return false;
                 };
 
+                auto isProceduralObjectID = [](int id) -> bool
+                {
+                    if (id < 0) return false;
+                    if (id >= 800 && id <= 906) return true;
+                    return false;
+                };
+
+
                 if (isInteriorObjectID(modelID))
                 {
                     *(float*)&regs.edx = drawDist;
@@ -360,7 +368,7 @@ void ApplyMemoryPatches()
 
                 if (fProceduralObjectsDrawDistance)
                 {
-                    if (modelID >= 800 && modelID <= 906 && drawDist <= 100.0f)
+                    if (isProceduralObjectID(modelID))
                     {
                         if (fProceduralObjectsDrawDistance <= 10.0f)
                             drawDist *= fProceduralObjectsDrawDistance;
@@ -403,7 +411,7 @@ void ApplyMemoryPatches()
                 {
                     if (fGenericObjectsDrawDistance)
                     {
-                        if (modelID >= 615 && modelID <= 1572)
+                        if (modelID >= 615 && modelID <= 1572 && !isProceduralObjectID(modelID))
                         {
                             if (fGenericObjectsDrawDistance <= 10.0f)
                                 drawDist *= fGenericObjectsDrawDistance;
