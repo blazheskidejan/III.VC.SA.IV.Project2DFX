@@ -366,18 +366,13 @@ void ApplyMemoryPatches()
                     return;
                 }
 
-                if (fProceduralObjectsDrawDistance)
+                if (isProceduralObjectID(modelID))
                 {
-                    if (isProceduralObjectID(modelID))
-                    {
-                        if (fProceduralObjectsDrawDistance <= 10.0f)
-                            drawDist *= fProceduralObjectsDrawDistance;
-                        else
-                            drawDist = fProceduralObjectsDrawDistance;
+                    if (fProceduralObjectsDrawDistance)
+                        drawDist = fProceduralObjectsDrawDistance;
 
-                        *(float*)&regs.edx = drawDist;
-                        return;
-                    }
+                    *(float*)&regs.edx = drawDist;
+                    return;
                 }
 
                 if (fVegetationDrawDistance)
@@ -411,7 +406,7 @@ void ApplyMemoryPatches()
                 {
                     if (fGenericObjectsDrawDistance)
                     {
-                        if (modelID >= 615 && modelID <= 1572 && !isProceduralObjectID(modelID))
+                        if (modelID >= 615 && modelID <= 1572)
                         {
                             if (fGenericObjectsDrawDistance <= 10.0f)
                                 drawDist *= fGenericObjectsDrawDistance;
